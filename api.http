@@ -1,0 +1,115 @@
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+### Health Check
+GET {{baseUrl}}/health
+Accept: {{contentType}}
+
+### Create Todos with Different Priorities
+### High Priority Todo
+POST {{baseUrl}}/todo
+Content-Type: {{contentType}}
+
+{
+    "task": "Complete project documentation",
+    "priority": "high",
+    "due_date": "2024-12-31T23:59:59Z"
+}
+
+### Medium Priority Todo
+POST {{baseUrl}}/todo
+Content-Type: {{contentType}}
+
+{
+    "task": "Review code changes",
+    "priority": "medium",
+    "due_date": "2024-12-20T23:59:59Z"
+}
+
+### Low Priority Todo
+POST {{baseUrl}}/todo
+Content-Type: {{contentType}}
+
+{
+    "task": "Update dependencies",
+    "priority": "low"
+}
+
+### Get All Todos
+GET {{baseUrl}}/todo
+Accept: {{contentType}}
+
+### Get Todos by Priority
+GET {{baseUrl}}/todo/priority/high
+Accept: {{contentType}}
+
+### Get Todos by Status
+GET {{baseUrl}}/todo/status/TO_BE_STARTED
+Accept: {{contentType}}
+
+### Search Todos
+GET {{baseUrl}}/search?q=project
+Accept: {{contentType}}
+
+### Update Todo Status to IN_PROGRESS
+PUT {{baseUrl}}/todo/status
+Content-Type: {{contentType}}
+
+{
+    "item": "Complete project documentation",
+    "status": "IN_PROGRESS"
+}
+
+### Update Todo Status to COMPLETED
+PUT {{baseUrl}}/todo/status
+Content-Type: {{contentType}}
+
+{
+    "item": "Complete project documentation",
+    "status": "COMPLETED"
+}
+
+### Delete Todo
+DELETE {{baseUrl}}/todo
+Content-Type: {{contentType}}
+
+{
+    "item": "Update dependencies"
+}
+
+### Error Cases ###
+
+### Try to create todo with invalid priority
+POST {{baseUrl}}/todo
+Content-Type: {{contentType}}
+
+{
+    "task": "Test invalid priority",
+    "priority": "INVALID"
+}
+
+### Try to update with invalid status
+PUT {{baseUrl}}/todo/status
+Content-Type: {{contentType}}
+
+{
+    "item": "Complete project documentation",
+    "status": "INVALID_STATUS"
+}
+
+### Try to create duplicate todo
+POST {{baseUrl}}/todo
+Content-Type: {{contentType}}
+
+{
+    "task": "Complete project documentation",
+    "priority": "high"
+}
+
+### Try to delete non-existent todo
+DELETE {{baseUrl}}/todo
+Content-Type: {{contentType}}
+
+{
+    "item": "Non existent task"
+}
